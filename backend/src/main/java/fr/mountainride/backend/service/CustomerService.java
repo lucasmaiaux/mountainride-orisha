@@ -15,16 +15,16 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public Iterable<Customer> getCustomers() {
+    public Iterable<Customer> findAll() {
         return customerRepository.findAll();
     }
 
-    public Customer getCustomerById(Long id) {
+    public Customer findById(Long id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
-    public Customer createCustomer(CustomerDTO customerDTO) {
+    public Customer create(CustomerDTO customerDTO) {
         Customer customer = new Customer();
         customer.setFirstName(customerDTO.getFirstName());
         customer.setLastName(customerDTO.getLastName());
@@ -34,8 +34,8 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public Customer updateCustomer(Long id, CustomerDTO customerDTO) {
-        Customer customer = getCustomerById(id);
+    public Customer update(Long id, CustomerDTO customerDTO) {
+        Customer customer = findById(id);
         customer.setFirstName(customerDTO.getFirstName());
         customer.setLastName(customerDTO.getLastName());
         customer.setEmail(customerDTO.getEmail());
@@ -44,8 +44,8 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public void deleteCustomer(Long id) {
-        Customer customer = getCustomerById(id);
-        customerRepository.deleteById(customer.getId());
+    public void delete(Long id) {
+        Customer customer = findById(id);
+        customerRepository.delete(customer);
     }
 }
