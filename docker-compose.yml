@@ -1,0 +1,17 @@
+# ============================================
+# Configuration BASE
+# ============================================
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpass}
+      MYSQL_DATABASE: ${DB_NAME:-orisha_db}
+      MYSQL_USER: ${DB_USERNAME:-orisha_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-DevPass123!}
+    networks:
+      - orisha_network
+
+networks:
+  orisha_network:

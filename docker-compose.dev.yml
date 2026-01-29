@@ -1,0 +1,15 @@
+# ============================================
+# Configuration DEVELOPPEMENT
+# docker compose -f docker-compose.yml -f docker-compose.dev.yml up mysql
+# ============================================
+
+services:
+  mysql:
+    container_name: orisha_db_dev
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_dev_data:/var/lib/mysql
+
+volumes:
+  mysql_dev_data:
