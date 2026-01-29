@@ -1,0 +1,50 @@
+# ========================================
+# IDE
+# ========================================
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+
+# ========================================
+# Backend (Spring Boot / Maven)
+# ========================================
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+backend/HELP.md
+backend/.classpath
+backend/.project
+backend/.settings/
+
+# ========================================
+# Frontend (Vue.js / Node)
+# ========================================
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ========================================
+# Docker
+# ========================================
+*.log
+
+# ========================================
+# OS
+# ========================================
+Thumbs.db
+.DS_Store
+
+# ========================================
+# Autres
+# ========================================
+*.tmp
+*.bak
+*.swp
