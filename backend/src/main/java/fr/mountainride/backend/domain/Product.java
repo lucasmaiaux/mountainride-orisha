@@ -1,7 +1,6 @@
 package fr.mountainride.backend.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,7 +17,6 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "product_type_id", nullable = false)
-    @JsonBackReference
     private ProductType productType;
 
     @Column(nullable = false)
@@ -32,6 +30,6 @@ public class Product {
     private BigDecimal basePrice;
 
     @OneToMany(mappedBy = "product")
-    @JsonManagedReference
+    @JsonIgnore
     private List<ProductPrice> prices;
 }

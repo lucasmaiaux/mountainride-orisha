@@ -1,6 +1,6 @@
 package fr.mountainride.backend.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,6 +29,6 @@ public class Customer {
     private String address;
 
     @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Rental> rentals;
 }
