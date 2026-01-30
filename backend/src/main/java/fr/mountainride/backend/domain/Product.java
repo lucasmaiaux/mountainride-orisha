@@ -29,6 +29,9 @@ public class Product {
     @Column(name = "base_price", precision = 10, scale = 2)
     private BigDecimal basePrice;
 
+    @Column(nullable = false)
+    private Boolean available = true;
+
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<ProductPrice> prices;
