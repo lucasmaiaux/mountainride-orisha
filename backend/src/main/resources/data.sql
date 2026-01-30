@@ -228,34 +228,34 @@ INSERT IGNORE INTO rental (id, customer_id, code, start_date, end_date, status, 
 -- RENTAL_ITEM
 -- ============================================
 -- Location 1 : Jean - 3 jours (ski + chaussures + bâtons + casque)
-INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price) VALUES
-(1, 1, 2, 3, 30.00),   -- Ski 170cm (tarif 2-3j)
-(2, 1, 30, 3, 15.00),  -- Chaussures 42 (tarif 2-3j)
-(3, 1, 39, 3, 4.00),   -- Bâtons 120cm (tarif 2-3j)
-(4, 1, 25, 3, 7.00);   -- Casque M (tarif 2-3j)
+INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price, final_price) VALUES
+(1, 1, 2, 3, 30.00, 90.00),   -- Ski 170cm (tarif 2-3j)
+(2, 1, 30, 3, 15.00, 45.00),  -- Chaussures 42 (tarif 2-3j)
+(3, 1, 39, 3, 4.00, 12.00),   -- Bâtons 120cm (tarif 2-3j)
+(4, 1, 25, 3, 7.00, 21.00);   -- Casque M (tarif 2-3j)
 
 -- Location 2 : Marie - 6 jours (snowboard + boots + casque + vêtements)
-INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price) VALUES
-(5, 2, 9, 6, 30.00),   -- Snowboard 158cm (tarif 4-7j)
-(6, 2, 34, 6, 12.00),  -- Boots snowboard 42 (tarif 4-7j)
-(7, 2, 25, 6, 6.00),   -- Casque M (tarif 4-7j)
-(8, 2, 19, 6, 15.00);  -- Combinaison M (tarif 4-7j)
+INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price, final_price) VALUES
+(5, 2, 9, 6, 30.00, 180.00),   -- Snowboard 158cm (tarif 4-7j)
+(6, 2, 34, 6, 12.00, 72.00),   -- Boots snowboard 42 (tarif 4-7j)
+(7, 2, 25, 6, 6.00, 36.00),    -- Casque M (tarif 4-7j)
+(8, 2, 19, 6, 15.00, 90.00);   -- Combinaison M (tarif 4-7j)
 
 -- Location 3 : Pierre - 3 jours (raquettes + luge)
-INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price) VALUES
-(9, 3, 12, 3, 13.00),   -- Raquettes M (tarif 2-3j)
-(10, 3, 13, 3, 13.00),  -- Raquettes L (tarif 2-3j)
-(11, 3, 15, 3, 7.00),   -- Luge adulte (tarif 2-3j)
-(12, 3, 16, 3, 5.00);   -- Luge enfant (tarif 2-3j)
+INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price, final_price) VALUES
+(9, 3, 12, 3, 13.00, 39.00),   -- Raquettes M (tarif 2-3j)
+(10, 3, 13, 3, 13.00, 39.00),  -- Raquettes L (tarif 2-3j)
+(11, 3, 15, 3, 7.00, 21.00),   -- Luge adulte (tarif 2-3j)
+(12, 3, 16, 3, 5.00, 15.00);   -- Luge enfant (tarif 2-3j)
 
 -- Location 4 : Sophie - 5 jours (ski famille)
-INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price) VALUES
-(13, 4, 1, 5, 26.00),   -- Ski 160cm (tarif 4-7j)
-(14, 4, 28, 5, 14.00),  -- Chaussures 38 (tarif 4-7j)
-(15, 4, 38, 5, 3.00);   -- Bâtons 110cm (tarif 4-7j)
+INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price, final_price) VALUES
+(13, 4, 1, 5, 26.00, 130.00),  -- Ski 160cm (tarif 4-7j)
+(14, 4, 28, 5, 14.00, 70.00),  -- Chaussures 38 (tarif 4-7j)
+(15, 4, 38, 5, 3.00, 15.00);   -- Bâtons 110cm (tarif 4-7j)
 
 -- Location 5 : Jean - 1 jour (ski rapide)
-INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price) VALUES
-(16, 5, 4, 1, 45.00),   -- Ski premium 165cm (tarif 1j)
-(17, 5, 30, 1, 18.00),  -- Chaussures 42 (tarif 1j)
-(18, 5, 40, 1, 5.00);   -- Bâtons 130cm (tarif 1j)
+INSERT IGNORE INTO rental_item (id, rental_id, product_id, duration, daily_price, final_price) VALUES
+(16, 5, 4, 1, 45.00, 45.00),   -- Ski premium 165cm (tarif 1j)
+(17, 5, 30, 1, 18.00, 18.00),  -- Chaussures 42 (tarif 1j)
+(18, 5, 40, 1, 5.00, 5.00);    -- Bâtons 130cm (tarif 1j)

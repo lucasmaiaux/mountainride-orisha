@@ -133,18 +133,23 @@ public class RentalService {
             // Récupère le prix associé à la durée choisie dans la table product_price
             BigDecimal dailyPrice = findDailyPrice(product, item.getDuration());
 
+            // Calcule le prix final (duration * dailyPrice) directement
+            // En partant du principe qu'il n'y a aucun retard/modification
+            BigDecimal itemFinalPrice = dailyPrice.multiply(BigDecimal.valueOf(item.getDuration()));
+
             RentalItem rentalItem = new RentalItem();
             rentalItem.setRental(rental);
             rentalItem.setProduct(product);
             rentalItem.setDuration(item.getDuration());
             rentalItem.setDailyPrice(dailyPrice);
+            rentalItem.setFinalPrice(itemFinalPrice);
             rentalItemRepository.save(rentalItem);
 
             // Change le status d'un product : AVAILABLE -> NON AVAILABLE
             product.setAvailable(false);
             productRepository.save(product);
 
-            totalPrice = totalPrice.add(dailyPrice.multiply(BigDecimal.valueOf(item.getDuration())));
+            totalPrice = totalPrice.add(itemFinalPrice);
         }
 
         rental.setTotalPrice(totalPrice);
@@ -172,6 +177,25 @@ public class RentalService {
 
     public List<Rental> findByCustomerPhoneNumber(String phoneNumber) {
         return rentalRepository.findByCustomerPhoneNumber(phoneNumber);
+    }
+
+    // Finalisation d'une location
+    public Rental finishRental(Long rentalId) {
+        Rental rental = findById(rentalId);
+
+        // Met la date de fin à aujourd'hui
+        rental.setEndDate(LocalDate.now());
+        rental.setStatus("COMPLETED");
+
+        // Remet tous les produits en disponible
+        List<RentalItem> items = rentalItemRepository.findByRentalId(rentalId);
+        for (RentalItem item : items) {
+            Product product = item.getProduct();
+            product.setAvailable(true);
+            productRepository.save(product);
+        }
+
+        return rentalRepository.save(rental);
     }
 
     // Génération d'un code de location (format LOCMR-année-10 chiffres aléatoires)

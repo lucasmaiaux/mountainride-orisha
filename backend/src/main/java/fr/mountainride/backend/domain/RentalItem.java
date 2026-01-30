@@ -27,4 +27,7 @@ public class RentalItem {
 
     @Column(name = "daily_price", precision = 10, scale = 2)
     private BigDecimal dailyPrice;
+
+    @Column(name = "final_price", precision = 10, scale = 2)
+    private BigDecimal finalPrice;
 }

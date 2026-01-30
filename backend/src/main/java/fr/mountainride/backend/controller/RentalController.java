@@ -21,6 +21,7 @@ import java.util.List;
  * GET      /api/rental/search?phoneNumber=   - Rechercher par téléphone
  * POST     /api/rental                       - Ajout d'une location
  * POST     /api/rental/start                 - Démarrer une nouvelle location
+ * POST     /api/rental/{id}/finish           - Terminer une location
  * PUT      /api/rental/{id}                  - Modification d'une location
  * DELETE   /api/rental/{id}                  - Suppression d'une location
  */
@@ -85,6 +86,11 @@ public class RentalController {
     @ResponseStatus(HttpStatus.CREATED)
     public Rental startRental(@RequestBody NewRentalDTO newRentalDTO) {
         return rentalService.startRental(newRentalDTO);
+    }
+
+    @PostMapping("/{id}/finish")
+    public Rental finishRental(@PathVariable Long id) {
+        return rentalService.finishRental(id);
     }
 
     @PutMapping("/{id}")
