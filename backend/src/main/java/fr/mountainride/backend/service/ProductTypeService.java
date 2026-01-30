@@ -1,10 +1,10 @@
 package fr.mountainride.backend.service;
 
 import fr.mountainride.backend.domain.ProductType;
+import fr.mountainride.backend.dto.ProductTypeDTO;
+import fr.mountainride.backend.exception.ProductTypeNotFoundException;
 import fr.mountainride.backend.repository.ProductTypeRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ProductTypeService {
@@ -21,16 +21,18 @@ public class ProductTypeService {
 
     public ProductType findById(Long id) {
         return productTypeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Type de produit non trouvé"));
+                .orElseThrow(() -> new ProductTypeNotFoundException(id));
     }
 
-    public ProductType create(ProductType productType) {
+    public ProductType create(ProductTypeDTO productTypeDTO) {
+        ProductType productType = new ProductType();
+        productType.setName(productTypeDTO.getName());
         return productTypeRepository.save(productType);
     }
 
-    public ProductType update(Long id, ProductType newProductType) {
+    public ProductType update(Long id, ProductTypeDTO productTypeDTO) {
         ProductType productType = findById(id);
-        productType.setName(newProductType.getName());
+        productType.setName(productTypeDTO.getName());
         return productTypeRepository.save(productType);
     }
 

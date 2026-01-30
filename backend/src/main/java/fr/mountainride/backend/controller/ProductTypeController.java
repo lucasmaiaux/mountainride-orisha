@@ -1,6 +1,7 @@
 package fr.mountainride.backend.controller;
 
 import fr.mountainride.backend.domain.ProductType;
+import fr.mountainride.backend.dto.ProductTypeDTO;
 import fr.mountainride.backend.service.ProductTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -34,13 +35,13 @@ public class ProductTypeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductType create(@RequestBody ProductType productType) {
-        return productTypeService.create(productType);
+    public ProductType create(@RequestBody ProductTypeDTO productTypeDTO) {
+        return productTypeService.create(productTypeDTO);
     }
 
     @PutMapping("/{id}")
-    public ProductType update(@PathVariable Long id, @RequestBody ProductType productType) {
-        return productTypeService.update(id, productType);
+    public ProductType update(@PathVariable Long id, @RequestBody ProductTypeDTO productTypeDTO) {
+        return productTypeService.update(id, productTypeDTO);
     }
 
     @DeleteMapping("/{id}")
