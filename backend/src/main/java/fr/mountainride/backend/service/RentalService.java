@@ -8,8 +8,10 @@ import fr.mountainride.backend.domain.RentalItem;
 import fr.mountainride.backend.dto.NewRentalDTO;
 import fr.mountainride.backend.dto.NewRentalItemDTO;
 import fr.mountainride.backend.dto.RentalDTO;
+import fr.mountainride.backend.exception.ProductNotAvailableException;
 import fr.mountainride.backend.exception.RentalNotFoundException;
 import fr.mountainride.backend.repository.ProductPriceRepository;
+import fr.mountainride.backend.repository.ProductRepository;
 import fr.mountainride.backend.repository.RentalItemRepository;
 import fr.mountainride.backend.repository.RentalRepository;
 import org.springframework.stereotype.Service;
@@ -25,17 +27,20 @@ public class RentalService {
 
     private final RentalRepository rentalRepository;
     private final RentalItemRepository rentalItemRepository;
+    private final ProductRepository productRepository;
     private final ProductPriceRepository productPriceRepository;
     private final CustomerService customerService;
     private final ProductService productService;
 
     public RentalService(RentalRepository rentalRepository,
                          RentalItemRepository rentalItemRepository,
+                         ProductRepository productRepository,
                          ProductPriceRepository productPriceRepository,
                          CustomerService customerService,
                          ProductService productService) {
         this.rentalRepository = rentalRepository;
         this.rentalItemRepository = rentalItemRepository;
+        this.productRepository = productRepository;
         this.productPriceRepository = productPriceRepository;
         this.customerService = customerService;
         this.productService = productService;
@@ -107,6 +112,7 @@ public class RentalService {
         // Si le mail existe déjà en BDD, récupère le customer existant, sinon le créé
         Customer customer = customerService.findOrCreate(newRentalDTO.getCustomer());
 
+        // Création de l'objet Rental (pas de RentalItem associés encore)
         Rental rental = new Rental();
         rental.setCustomer(customer);
         rental.setCode(generateRentalCode());
@@ -118,6 +124,13 @@ public class RentalService {
 
         for (NewRentalItemDTO item : newRentalDTO.getItems()) {
             Product product = productService.findById(item.getProductId());
+
+            // Vérification que le produit n'est pas déjà loué, sinon renvoie une erreur
+            if (!product.getAvailable()) {
+                throw new ProductNotAvailableException(product.getId());
+            }
+
+            // Récupère le prix associé à la durée choisie dans la table product_price
             BigDecimal dailyPrice = findDailyPrice(product, item.getDuration());
 
             RentalItem rentalItem = new RentalItem();
@@ -126,6 +139,10 @@ public class RentalService {
             rentalItem.setDuration(item.getDuration());
             rentalItem.setDailyPrice(dailyPrice);
             rentalItemRepository.save(rentalItem);
+
+            // Change le status d'un product : AVAILABLE -> NON AVAILABLE
+            product.setAvailable(false);
+            productRepository.save(product);
 
             totalPrice = totalPrice.add(dailyPrice.multiply(BigDecimal.valueOf(item.getDuration())));
         }
