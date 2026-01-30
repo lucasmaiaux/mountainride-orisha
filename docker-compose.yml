@@ -24,6 +24,15 @@ services:
     networks:
       - orisha_network
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    networks:
+      - orisha_network
+
 networks:
   orisha_network:
     driver: bridge

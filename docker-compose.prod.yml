@@ -52,6 +52,35 @@ services:
       # Service
       - "traefik.http.services.orisha-api.loadbalancer.server.port=8080"
 
+  frontend:
+    image: ${DOCKER_REGISTRY:-}orisha-frontend:${VERSION:-latest}
+    container_name: orisha_frontend_prod
+    restart: always
+    build:
+      args:
+        VITE_API_URL: https://mountainride-api.${DOMAIN}/api
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    networks:
+      - orisha_network
+      - traefik_public
+    labels:
+      # Activation Traefik
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_public"
+
+      # Routeur HTTPS
+      - "traefik.http.routers.orisha-frontend.rule=Host(`mountainride.${DOMAIN}`)"
+      - "traefik.http.routers.orisha-frontend.entrypoints=websecure"
+      - "traefik.http.routers.orisha-frontend.tls=true"
+      - "traefik.http.routers.orisha-frontend.tls.certresolver=letsencrypt"
+
+      # Service
+      - "traefik.http.services.orisha-frontend.loadbalancer.server.port=80"
+
 networks:
   traefik_public:
     external: true
