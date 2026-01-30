@@ -8,6 +8,8 @@ import fr.mountainride.backend.exception.RentalItemNotFoundException;
 import fr.mountainride.backend.repository.RentalItemRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RentalItemService {
 
@@ -55,5 +57,10 @@ public class RentalItemService {
     public void delete(Long id) {
         RentalItem rentalItem = findById(id);
         rentalItemRepository.delete(rentalItem);
+    }
+
+    public List<RentalItem> findByRentalId(Long rentalId) {
+        rentalService.findById(rentalId);
+        return rentalItemRepository.findByRentalId(rentalId);
     }
 }

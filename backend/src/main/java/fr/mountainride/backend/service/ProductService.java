@@ -7,6 +7,8 @@ import fr.mountainride.backend.exception.ProductNotFoundException;
 import fr.mountainride.backend.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -52,5 +54,10 @@ public class ProductService {
     public void delete(Long id) {
         Product product = findById(id);
         productRepository.delete(product);
+    }
+
+    public List<Product> findByProductTypeId(Long productTypeId) {
+        productTypeService.findById(productTypeId);
+        return productRepository.findByProductTypeId(productTypeId);
     }
 }

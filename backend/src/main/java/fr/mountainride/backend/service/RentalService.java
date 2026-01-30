@@ -7,6 +7,8 @@ import fr.mountainride.backend.exception.RentalNotFoundException;
 import fr.mountainride.backend.repository.RentalRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RentalService {
 
@@ -54,5 +56,10 @@ public class RentalService {
     public void delete(Long id) {
         Rental rental = findById(id);
         rentalRepository.delete(rental);
+    }
+
+    public List<Rental> findByCustomerId(Long customerId) {
+        customerService.findById(customerId);
+        return rentalRepository.findByCustomerId(customerId);
     }
 }
