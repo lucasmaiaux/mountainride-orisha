@@ -10,6 +10,21 @@ services:
       - "3306:3306"
     volumes:
       - mysql_dev_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend desactive par defaut en dev (tourne en local avec mvn spring-boot:run)
+  backend:
+    profiles:
+      - full-docker
+    container_name: orisha_backend_dev
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8080:8080"
 
 volumes:
   mysql_dev_data:

@@ -1,5 +1,6 @@
 # ============================================
-# Configuration BASE
+# Configuration BASE - Services communs
+# A utiliser avec un fichier override (dev ou prod)
 # ============================================
 
 services:
@@ -13,5 +14,16 @@ services:
     networks:
       - orisha_network
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - orisha_network
+
 networks:
   orisha_network:
+    driver: bridge
