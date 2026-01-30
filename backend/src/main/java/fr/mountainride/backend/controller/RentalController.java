@@ -2,6 +2,7 @@ package fr.mountainride.backend.controller;
 
 import fr.mountainride.backend.domain.Rental;
 import fr.mountainride.backend.domain.RentalItem;
+import fr.mountainride.backend.dto.NewRentalDTO;
 import fr.mountainride.backend.dto.RentalDTO;
 import fr.mountainride.backend.service.RentalItemService;
 import fr.mountainride.backend.service.RentalService;
@@ -15,6 +16,7 @@ import java.util.List;
  * GET      /api/rental/{id}       - Afficher une location
  * GET      /api/rental/{id}/items - Afficher les articles d'une location
  * POST     /api/rental            - Ajout d'une location
+ * POST     /api/rental/start      - Démarrer une nouvelle location
  * PUT      /api/rental/{id}       - Modification d'une location
  * DELETE   /api/rental/{id}       - Suppression d'une location
  */
@@ -49,6 +51,12 @@ public class RentalController {
     @ResponseStatus(HttpStatus.CREATED)
     public Rental create(@RequestBody RentalDTO rentalDTO) {
         return rentalService.create(rentalDTO);
+    }
+
+    @PostMapping("/start")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Rental startRental(@RequestBody NewRentalDTO newRentalDTO) {
+        return rentalService.startRental(newRentalDTO);
     }
 
     @PutMapping("/{id}")

@@ -48,4 +48,10 @@ public class CustomerService {
         Customer customer = findById(id);
         customerRepository.delete(customer);
     }
+
+    // Cherche un client par son émail et le créé si pas trouvé
+    public Customer findOrCreate(CustomerDTO customerDTO) {
+        return customerRepository.findByEmail(customerDTO.getEmail())
+                .orElseGet(() -> create(customerDTO));
+    }
 }

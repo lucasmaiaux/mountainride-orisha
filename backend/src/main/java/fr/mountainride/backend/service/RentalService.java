@@ -1,23 +1,44 @@
 package fr.mountainride.backend.service;
 
 import fr.mountainride.backend.domain.Customer;
+import fr.mountainride.backend.domain.Product;
+import fr.mountainride.backend.domain.ProductPrice;
 import fr.mountainride.backend.domain.Rental;
+import fr.mountainride.backend.domain.RentalItem;
+import fr.mountainride.backend.dto.NewRentalDTO;
+import fr.mountainride.backend.dto.NewRentalItemDTO;
 import fr.mountainride.backend.dto.RentalDTO;
 import fr.mountainride.backend.exception.RentalNotFoundException;
+import fr.mountainride.backend.repository.ProductPriceRepository;
+import fr.mountainride.backend.repository.RentalItemRepository;
 import fr.mountainride.backend.repository.RentalRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.List;
 
 @Service
 public class RentalService {
 
     private final RentalRepository rentalRepository;
+    private final RentalItemRepository rentalItemRepository;
+    private final ProductPriceRepository productPriceRepository;
     private final CustomerService customerService;
+    private final ProductService productService;
 
-    public RentalService(RentalRepository rentalRepository, CustomerService customerService) {
+    public RentalService(RentalRepository rentalRepository,
+                         RentalItemRepository rentalItemRepository,
+                         ProductPriceRepository productPriceRepository,
+                         CustomerService customerService,
+                         ProductService productService) {
         this.rentalRepository = rentalRepository;
+        this.rentalItemRepository = rentalItemRepository;
+        this.productPriceRepository = productPriceRepository;
         this.customerService = customerService;
+        this.productService = productService;
     }
 
     public Iterable<Rental> findAll() {
@@ -61,5 +82,73 @@ public class RentalService {
     public List<Rental> findByCustomerId(Long customerId) {
         customerService.findById(customerId);
         return rentalRepository.findByCustomerId(customerId);
+    }
+
+    // Création d'une location
+    /* FORMAT DU JSON
+        {
+            "customer":
+            {
+                "firstName": "Jean",
+                "lastName": "Dupont",
+                "email": "jean@mail.fr",
+                "phoneNumber": "0612345678",
+                "address": "15 rue des Alpes"
+            },
+            "items":
+            [
+                { "productId": 2, "duration": 3 },
+                { "productId": 30, "duration": 3 }
+            ]
+        }
+    */
+    public Rental startRental(NewRentalDTO newRentalDTO) {
+
+        // Si le mail existe déjà en BDD, récupère le customer existant, sinon le créé
+        Customer customer = customerService.findOrCreate(newRentalDTO.getCustomer());
+
+        Rental rental = new Rental();
+        rental.setCustomer(customer);
+        rental.setCode(generateRentalCode());
+        rental.setStartDate(LocalDate.now());
+        rental.setStatus("ACTIVE");
+        rental = rentalRepository.save(rental);
+
+        BigDecimal totalPrice = BigDecimal.ZERO;
+
+        for (NewRentalItemDTO item : newRentalDTO.getItems()) {
+            Product product = productService.findById(item.getProductId());
+            BigDecimal dailyPrice = findDailyPrice(product, item.getDuration());
+
+            RentalItem rentalItem = new RentalItem();
+            rentalItem.setRental(rental);
+            rentalItem.setProduct(product);
+            rentalItem.setDuration(item.getDuration());
+            rentalItem.setDailyPrice(dailyPrice);
+            rentalItemRepository.save(rentalItem);
+
+            totalPrice = totalPrice.add(dailyPrice.multiply(BigDecimal.valueOf(item.getDuration())));
+        }
+
+        rental.setTotalPrice(totalPrice);
+        return rentalRepository.save(rental);
+    }
+
+    // Trouve le prix journalier selon la durée (tarif dégressif)
+    private BigDecimal findDailyPrice(Product product, Integer duration) {
+        List<ProductPrice> prices = productPriceRepository.findByProductId(product.getId());
+
+        return prices.stream()
+                .filter(p -> duration >= p.getMinDuration() && duration <= p.getMaxDuration())
+                .findFirst()
+                .map(ProductPrice::getDailyPrice)
+                .orElse(product.getBasePrice());
+    }
+
+    // Génération d'un code de location (format LOCMR-année-10 chiffres aléatoires)
+    private String generateRentalCode() {
+        String year = String.valueOf(Year.now().getValue());
+        String random = String.format("%010d", new SecureRandom().nextInt(1_000_000_000));
+        return "LOCMR-" + year + "-" + random;
     }
 }
