@@ -228,9 +228,9 @@ INSERT IGNORE INTO customer (id, first_name, last_name, email, phone_number, add
 INSERT IGNORE INTO rental (id, customer_id, code, start_date, end_date, status, total_price) VALUES
 (1, 1, 'LOCMR-2025-4827361950', '2025-01-15', '2025-01-17', 'COMPLETED', 168.00),
 (2, 2, 'LOCMR-2025-7193846205', '2025-01-20', '2025-01-25', 'COMPLETED', 378.00),
-(3, 3, 'LOCMR-2025-5028471936', '2025-01-28', '2025-01-30', 'ACTIVE', 114.00),
-(4, 4, 'LOCMR-2025-8362719405', '2025-01-29', '2025-02-02', 'ACTIVE', 215.00),
-(5, 1, 'LOCMR-2025-2947183650', '2025-02-01', '2025-02-01', 'ACTIVE', 68.00);
+(3, 3, 'LOCMR-2025-5028471936', '2025-01-28', NULL, 'ACTIVE', 114.00),
+(4, 4, 'LOCMR-2025-8362719405', '2025-01-29', NULL, 'ACTIVE', 215.00),
+(5, 1, 'LOCMR-2025-2947183650', '2025-02-01', NULL, 'ACTIVE', 68.00);
 
 -- ============================================
 -- RENTAL_ITEM
