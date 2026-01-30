@@ -58,7 +58,7 @@ services:
     restart: always
     build:
       args:
-        VITE_API_URL: https://mountainride-api.${DOMAIN}/api
+        VITE_API_URL: https://api.mountainride.${DOMAIN}/api
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1/"]
       interval: 30s
