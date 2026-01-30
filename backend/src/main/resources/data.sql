@@ -4,6 +4,14 @@
 -- ============================================
 
 -- ============================================
+-- EMPLOYEE (mot de passe : password123)
+-- Hash généré avec BCrypt 12 rounds à la mano parce que je sais pas comment faire autrement
+-- ============================================
+INSERT IGNORE INTO employee (id, first_name, last_name, email, password, role) VALUES
+(1, 'Admin', 'MountainRide', 'admin@mountainride.fr', '$2a$12$sDBtNpFJRw6hfyn1V.izxOcWJNX35N9Z0G0YsOBP9HH6ko1NGnzOa', 'ADMIN'),
+(2, 'Jean', 'Martin', 'employe@mountainride.fr', '$2a$12$sDBtNpFJRw6hfyn1V.izxOcWJNX35N9Z0G0YsOBP9HH6ko1NGnzOa', 'EMPLOYEE');
+
+-- ============================================
 -- PRODUCT_TYPE
 -- ============================================
 INSERT IGNORE INTO product_type (id, name) VALUES
