@@ -17,73 +17,94 @@ INSERT IGNORE INTO product_type (id, name) VALUES
 (8, 'Bâtons');
 
 -- ============================================
--- PRODUCT
+-- PRODUCT (available = false si en location ACTIVE)
 -- ============================================
 -- Skis
-INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price) VALUES
-(1, 1, 'Ski Alpin Rossignol Experience', '160cm', 'Ski polyvalent pour pistes', 35.00),
-(2, 1, 'Ski Alpin Rossignol Experience', '170cm', 'Ski polyvalent pour pistes', 35.00),
-(3, 1, 'Ski Alpin Rossignol Experience', '180cm', 'Ski polyvalent pour pistes', 35.00),
-(4, 1, 'Ski Alpin Salomon QST', '165cm', 'Ski freeride performant', 45.00),
-(5, 1, 'Ski Alpin Salomon QST', '175cm', 'Ski freeride performant', 45.00),
-(6, 1, 'Ski Enfant Atomic', '120cm', 'Ski junior débutant', 25.00),
-(7, 1, 'Ski Enfant Atomic', '140cm', 'Ski junior intermédiaire', 25.00);
+INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price, available) VALUES
+(1, 1, 'Ski Alpin Rossignol Experience', '160cm', 'Ski polyvalent pour pistes', 35.00, false),
+(2, 1, 'Ski Alpin Rossignol Experience', '170cm', 'Ski polyvalent pour pistes', 35.00, true),
+(3, 1, 'Ski Alpin Rossignol Experience', '180cm', 'Ski polyvalent pour pistes', 35.00, true),
+(4, 1, 'Ski Alpin Salomon QST', '165cm', 'Ski freeride performant', 45.00, false),
+(5, 1, 'Ski Alpin Salomon QST', '175cm', 'Ski freeride performant', 45.00, true),
+(6, 1, 'Ski Enfant Atomic', '120cm', 'Ski junior débutant', 25.00, true),
+(7, 1, 'Ski Enfant Atomic', '140cm', 'Ski junior intermédiaire', 25.00, true),
+(43, 1, 'Ski Alpin Head Supershape', '165cm', 'Ski racing performant', 50.00, true),
+(44, 1, 'Ski Alpin Head Supershape', '175cm', 'Ski racing performant', 50.00, true),
+(45, 1, 'Ski Alpin Dynastar Legend', '170cm', 'Ski all-mountain', 38.00, true);
 
 -- Snowboards
-INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price) VALUES
-(8, 2, 'Snowboard Burton Custom', '154cm', 'Board polyvalente freestyle', 40.00),
-(9, 2, 'Snowboard Burton Custom', '158cm', 'Board polyvalente freestyle', 40.00),
-(10, 2, 'Snowboard Burton Custom', '162cm', 'Board polyvalente freestyle', 40.00),
-(11, 2, 'Snowboard Enfant Burton Chopper', '120cm', 'Board junior débutant', 28.00);
+INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price, available) VALUES
+(8, 2, 'Snowboard Burton Custom', '154cm', 'Board polyvalente freestyle', 40.00, true),
+(9, 2, 'Snowboard Burton Custom', '158cm', 'Board polyvalente freestyle', 40.00, true),
+(10, 2, 'Snowboard Burton Custom', '162cm', 'Board polyvalente freestyle', 40.00, true),
+(11, 2, 'Snowboard Enfant Burton Chopper', '120cm', 'Board junior débutant', 28.00, true),
+(46, 2, 'Snowboard Nitro Prime', '155cm', 'Board débutant polyvalente', 35.00, true),
+(47, 2, 'Snowboard Nitro Prime', '160cm', 'Board débutant polyvalente', 35.00, true),
+(48, 2, 'Snowboard Lib Tech Skate Banana', '156cm', 'Board freestyle expert', 48.00, true);
 
 -- Raquettes
-INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price) VALUES
-(12, 3, 'Raquettes TSL 325', 'M', 'Raquettes randonnée classique', 15.00),
-(13, 3, 'Raquettes TSL 325', 'L', 'Raquettes randonnée classique', 15.00),
-(14, 3, 'Raquettes TSL Enfant', 'S', 'Raquettes junior', 10.00);
+INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price, available) VALUES
+(12, 3, 'Raquettes TSL 325', 'M', 'Raquettes randonnée classique', 15.00, false),
+(13, 3, 'Raquettes TSL 325', 'L', 'Raquettes randonnée classique', 15.00, false),
+(14, 3, 'Raquettes TSL Enfant', 'S', 'Raquettes junior', 10.00, true),
+(49, 3, 'Raquettes TSL 438', 'M', 'Raquettes randonnée sportive', 18.00, true),
+(50, 3, 'Raquettes TSL 438', 'L', 'Raquettes randonnée sportive', 18.00, true);
 
 -- Luges
-INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price) VALUES
-(15, 4, 'Luge plastique classique', 'Adulte', 'Luge simple et robuste', 8.00),
-(16, 4, 'Luge plastique classique', 'Enfant', 'Luge enfant légère', 6.00),
-(17, 4, 'Luge en bois traditionnelle', 'Adulte', 'Luge bois style vintage', 12.00);
+INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price, available) VALUES
+(15, 4, 'Luge plastique classique', 'Adulte', 'Luge simple et robuste', 8.00, false),
+(16, 4, 'Luge plastique classique', 'Enfant', 'Luge enfant légère', 6.00, false),
+(17, 4, 'Luge en bois traditionnelle', 'Adulte', 'Luge bois style vintage', 12.00, true),
+(51, 4, 'Luge plastique classique', 'Adulte', 'Luge simple et robuste', 8.00, true),
+(52, 4, 'Luge plastique classique', 'Enfant', 'Luge enfant légère', 6.00, true);
 
 -- Vêtements
-INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price) VALUES
-(18, 5, 'Combinaison ski adulte', 'S', 'Combinaison imperméable chaude', 20.00),
-(19, 5, 'Combinaison ski adulte', 'M', 'Combinaison imperméable chaude', 20.00),
-(20, 5, 'Combinaison ski adulte', 'L', 'Combinaison imperméable chaude', 20.00),
-(21, 5, 'Combinaison ski adulte', 'XL', 'Combinaison imperméable chaude', 20.00),
-(22, 5, 'Combinaison ski enfant', 'S', 'Combinaison enfant colorée', 15.00),
-(23, 5, 'Combinaison ski enfant', 'M', 'Combinaison enfant colorée', 15.00);
+INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price, available) VALUES
+(18, 5, 'Combinaison ski adulte', 'S', 'Combinaison imperméable chaude', 20.00, true),
+(19, 5, 'Combinaison ski adulte', 'M', 'Combinaison imperméable chaude', 20.00, true),
+(20, 5, 'Combinaison ski adulte', 'L', 'Combinaison imperméable chaude', 20.00, true),
+(21, 5, 'Combinaison ski adulte', 'XL', 'Combinaison imperméable chaude', 20.00, true),
+(22, 5, 'Combinaison ski enfant', 'S', 'Combinaison enfant colorée', 15.00, true),
+(23, 5, 'Combinaison ski enfant', 'M', 'Combinaison enfant colorée', 15.00, true),
+(53, 5, 'Veste ski Columbia', 'M', 'Veste imperméable respirante', 15.00, true),
+(54, 5, 'Veste ski Columbia', 'L', 'Veste imperméable respirante', 15.00, true),
+(55, 5, 'Pantalon ski Columbia', 'M', 'Pantalon imperméable', 12.00, true),
+(56, 5, 'Pantalon ski Columbia', 'L', 'Pantalon imperméable', 12.00, true);
 
 -- Casques
-INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price) VALUES
-(24, 6, 'Casque ski Bollé', 'S', 'Casque léger et ventilé', 8.00),
-(25, 6, 'Casque ski Bollé', 'M', 'Casque léger et ventilé', 8.00),
-(26, 6, 'Casque ski Bollé', 'L', 'Casque léger et ventilé', 8.00),
-(27, 6, 'Casque enfant', 'S', 'Casque junior coloré', 6.00);
+INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price, available) VALUES
+(24, 6, 'Casque ski Bollé', 'S', 'Casque léger et ventilé', 8.00, true),
+(25, 6, 'Casque ski Bollé', 'M', 'Casque léger et ventilé', 8.00, true),
+(26, 6, 'Casque ski Bollé', 'L', 'Casque léger et ventilé', 8.00, true),
+(27, 6, 'Casque enfant', 'S', 'Casque junior coloré', 6.00, true),
+(57, 6, 'Casque ski Giro', 'M', 'Casque premium MIPS', 10.00, true),
+(58, 6, 'Casque ski Giro', 'L', 'Casque premium MIPS', 10.00, true);
 
 -- Chaussures
-INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price) VALUES
-(28, 7, 'Chaussures ski Salomon', '38', 'Chaussures confort flex 80', 18.00),
-(29, 7, 'Chaussures ski Salomon', '40', 'Chaussures confort flex 80', 18.00),
-(30, 7, 'Chaussures ski Salomon', '42', 'Chaussures confort flex 80', 18.00),
-(31, 7, 'Chaussures ski Salomon', '44', 'Chaussures confort flex 80', 18.00),
-(32, 7, 'Chaussures ski Salomon', '46', 'Chaussures confort flex 80', 18.00),
-(33, 7, 'Chaussures snowboard Burton', '40', 'Boots snowboard souples', 16.00),
-(34, 7, 'Chaussures snowboard Burton', '42', 'Boots snowboard souples', 16.00),
-(35, 7, 'Chaussures snowboard Burton', '44', 'Boots snowboard souples', 16.00),
-(36, 7, 'Chaussures ski enfant', '32', 'Chaussures junior', 12.00),
-(37, 7, 'Chaussures ski enfant', '35', 'Chaussures junior', 12.00);
+INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price, available) VALUES
+(28, 7, 'Chaussures ski Salomon', '38', 'Chaussures confort flex 80', 18.00, false),
+(29, 7, 'Chaussures ski Salomon', '40', 'Chaussures confort flex 80', 18.00, true),
+(30, 7, 'Chaussures ski Salomon', '42', 'Chaussures confort flex 80', 18.00, false),
+(31, 7, 'Chaussures ski Salomon', '44', 'Chaussures confort flex 80', 18.00, true),
+(32, 7, 'Chaussures ski Salomon', '46', 'Chaussures confort flex 80', 18.00, true),
+(33, 7, 'Chaussures snowboard Burton', '40', 'Boots snowboard souples', 16.00, true),
+(34, 7, 'Chaussures snowboard Burton', '42', 'Boots snowboard souples', 16.00, true),
+(35, 7, 'Chaussures snowboard Burton', '44', 'Boots snowboard souples', 16.00, true),
+(36, 7, 'Chaussures ski enfant', '32', 'Chaussures junior', 12.00, true),
+(37, 7, 'Chaussures ski enfant', '35', 'Chaussures junior', 12.00, true),
+(59, 7, 'Chaussures ski Rossignol', '39', 'Chaussures confort flex 70', 16.00, true),
+(60, 7, 'Chaussures ski Rossignol', '41', 'Chaussures confort flex 70', 16.00, true),
+(61, 7, 'Chaussures ski Rossignol', '43', 'Chaussures confort flex 70', 16.00, true);
 
 -- Bâtons
-INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price) VALUES
-(38, 8, 'Bâtons ski aluminium', '110cm', 'Bâtons légers polyvalents', 5.00),
-(39, 8, 'Bâtons ski aluminium', '120cm', 'Bâtons légers polyvalents', 5.00),
-(40, 8, 'Bâtons ski aluminium', '130cm', 'Bâtons légers polyvalents', 5.00),
-(41, 8, 'Bâtons ski enfant', '90cm', 'Bâtons junior', 4.00),
-(42, 8, 'Bâtons ski enfant', '100cm', 'Bâtons junior', 4.00);
+INSERT IGNORE INTO product (id, product_type_id, name, size, description, base_price, available) VALUES
+(38, 8, 'Bâtons ski aluminium', '110cm', 'Bâtons légers polyvalents', 5.00, false),
+(39, 8, 'Bâtons ski aluminium', '120cm', 'Bâtons légers polyvalents', 5.00, true),
+(40, 8, 'Bâtons ski aluminium', '130cm', 'Bâtons légers polyvalents', 5.00, false),
+(41, 8, 'Bâtons ski enfant', '90cm', 'Bâtons junior', 4.00, true),
+(42, 8, 'Bâtons ski enfant', '100cm', 'Bâtons junior', 4.00, true),
+(62, 8, 'Bâtons ski carbone', '115cm', 'Bâtons légers carbone', 7.00, true),
+(63, 8, 'Bâtons ski carbone', '125cm', 'Bâtons légers carbone', 7.00, true);
 
 -- ============================================
 -- PRODUCT_PRICE (tarifs dégressifs)
