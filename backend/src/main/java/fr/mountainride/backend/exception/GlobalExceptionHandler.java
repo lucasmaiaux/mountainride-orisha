@@ -40,6 +40,11 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(exception);
     }
 
+    @ExceptionHandler(RentalSearchNotFoundException.class)
+    public ResponseEntity<ErrorEntity> rentalSearchNotFoundHandler(RentalSearchNotFoundException exception) {
+        return buildErrorResponse(exception);
+    }
+
     private ResponseEntity<ErrorEntity> buildErrorResponse(RuntimeException exception) {
         ErrorEntity error = ErrorEntity.builder()
                 .timeStamp(LocalDateTime.now())

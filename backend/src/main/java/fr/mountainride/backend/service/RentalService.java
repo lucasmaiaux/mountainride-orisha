@@ -162,6 +162,18 @@ public class RentalService {
                 .orElse(product.getBasePrice());
     }
 
+    public List<Rental> findByCode(String code) {
+        return rentalRepository.findByCode(code);
+    }
+
+    public List<Rental> findByCustomerLastName(String lastName) {
+        return rentalRepository.findByCustomerLastName(lastName);
+    }
+
+    public List<Rental> findByCustomerPhoneNumber(String phoneNumber) {
+        return rentalRepository.findByCustomerPhoneNumber(phoneNumber);
+    }
+
     // Génération d'un code de location (format LOCMR-année-10 chiffres aléatoires)
     private String generateRentalCode() {
         String year = String.valueOf(Year.now().getValue());

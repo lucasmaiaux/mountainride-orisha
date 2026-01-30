@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface RentalRepository extends CrudRepository<Rental, Long> {
     List<Rental> findByCustomerId(Long customerId);
+    List<Rental> findByCode(String code);
+    List<Rental> findByCustomerLastName(String lastName);
+    List<Rental> findByCustomerPhoneNumber(String phoneNumber);
 }
