@@ -63,7 +63,7 @@ public class RentalService {
         rental.setStartDate(rentalDTO.getStartDate());
         rental.setEndDate(rentalDTO.getEndDate());
         rental.setStatus(rentalDTO.getStatus());
-        rental.setTotalPrice(rentalDTO.getTotalPrice());
+        rental.setTotalPrice(rentalDTO.getTotalPrice() != null ? rentalDTO.getTotalPrice() : BigDecimal.ZERO);
         return rentalRepository.save(rental);
     }
 
@@ -75,7 +75,7 @@ public class RentalService {
         rental.setStartDate(rentalDTO.getStartDate());
         rental.setEndDate(rentalDTO.getEndDate());
         rental.setStatus(rentalDTO.getStatus());
-        rental.setTotalPrice(rentalDTO.getTotalPrice());
+        rental.setTotalPrice(rentalDTO.getTotalPrice() != null ? rentalDTO.getTotalPrice() : BigDecimal.ZERO);
         return rentalRepository.save(rental);
     }
 

@@ -31,8 +31,8 @@ public class Rental {
 
     private String status;
 
-    @Column(name = "total_price", precision = 10, scale = 2)
-    private BigDecimal totalPrice;
+    @Column(name = "total_price", precision = 10, scale = 2, nullable = false)
+    private BigDecimal totalPrice = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "rental")
     @JsonIgnore
